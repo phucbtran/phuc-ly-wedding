@@ -198,23 +198,6 @@ if(biicore.bgMusic){
 	`);
 }
 
-if(!biicore.isPremium && !biicore.templatePremium) {
-	setTimeout(function(){
-		document.getElementsByClassName("bii-logo")[0].classList.add("show-sec");
-	}, 8000);
-	setTimeout(function(){
-		document.getElementsByClassName("bii-logo")[0].classList.remove("show-sec");
-	}, 11000);
-	setTimeout(function(){
-		document.getElementsByClassName("bii-logo")[0].classList.add("show-sec");
-	}, 25000);
-	setTimeout(function(){
-		document.getElementsByClassName("bii-logo")[0].classList.remove("show-sec");
-	}, 28000);
-	var biiLogo = biicore.webroot + '/common/imgs/bii.png?v=20210131'
-	var currentYear = new Date().getFullYear();
-}
-
 var showButtonWishSuggestions = document.querySelector('.show-autocomplete');
 var hideButtonWishSuggestions = document.querySelector('.hide-autocomplete');
 var showContentWishSuggestions = document.querySelectorAll('.showContent');

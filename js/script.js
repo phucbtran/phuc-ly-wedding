@@ -12,20 +12,6 @@
 			if(e.target.id == $("#donate-modal").attr('id')) { $("#donate-modal").hide(); }
 		});
 	}
-	
-	$(document).on('click', '#donate-modal .crypto-item', function(){
-		let parent = $(this).parents('.donate-card');
-		parent.find('.cryptos-box-view').show();
-		parent.find('.cryptos-box-view .coin-img').html('<img src="'+$(this).data('img')+'" />');
-		parent.find('.cryptos-box-view .coin-id').html($(this).data('id'));
-		parent.find('.cryptos-box-view .coin-address').html($(this).data('address'));
-		parent.find('.cryptos-box-view .coin-qr-code').html('').qrcode({width: 160,height: 160,text: $(this).data('address')});
-	});
-	
-	$(document).on('click', '#donate-modal .cryptos-box-view-close', function(){
-		let parent = $(this).parents('.donate-card');
-		parent.find('.cryptos-box-view').hide();
-	});
 
 	// smooth-scrolling
     function smoothScrolling($scrollLinks, $topOffset) {
@@ -135,82 +121,6 @@
             }
         });
     }
-    
-    if ($("#wish-form").length) {
-        $("#wish-form").validate({
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 5
-                },
-                content: {
-                    required: true,
-                    minlength: 10
-                },
-                email: {
-                    required: false,
-                    email: true
-                },
-            },
-
-            messages: {
-                name: {
-                    required: 'Vui lòng nhập tên của bạn.',
-                    minlength: 'Tên phải lớn hơn 5 ký tự.',
-                },
-                content: {
-                    required: 'Vui lòng nhập lời chúc.',
-                    minlength: 'Lời chúc phải lớn hơn 10 ký tự.',
-                },
-                email: {
-                    email: 'Địa chỉ email không hợp lệ.'
-                }
-            },
-
-            errorPlacement: function(error, element) {
-              if (element.attr("name") == "content" ) {
-                error.insertAfter("#wish-form .vitualTextarea");
-              } else {
-                error.insertAfter(element);
-              }
-            },
-            submitHandler: function (form) {
-                $("#loader").css("display", "inline-block");
-                $.ajax({
-                    type: "POST",
-                    url: "/wish",
-                    data: $(form).serialize(),
-                    success: function (res) {
-                        $( "#loader").hide();
-                        if(!res.error){
-                            $('.wish-box').scrollTop(0);
-                            $('.wish-box').prepend('<div class="wish-box-item bg"><strong>'+$(form).find("input[name='name']").val().replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;")+'</strong><p>'+$(form).find("textarea[name='content']").val().replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;")+'</p></div>');
-                            $( "#success").html(res.message).slideDown( "slow" );
-                            setTimeout(function() {
-                            $( "#success").slideUp( "slow" );
-                            }, 5000);
-                        }else{
-                            $( "#error").html(res.message).slideDown( "slow" );
-                            setTimeout(function() {
-                            $( "#error").slideUp( "slow" );
-                            }, 5000);
-                        }
-
-                        form.reset();
-                    },
-                    error: function() {
-                        $( "#loader").hide();
-                        $( "#error").slideDown( "slow" );
-                        setTimeout(function() {
-                        $( "#error").slideUp( "slow" );
-                        }, 5000);
-                    }
-                });
-                return false;
-            }
-
-        });
-    }
 
   // comming count down clock
 
@@ -310,27 +220,6 @@
   // Initialize WOW JS
   new WOW().init();
 
-    /*------------------------------------------
-        = POPUP VIDEO
-    -------------------------------------------*/
-    if ($(".video-play-btn").length) {
-      $(".video-play-btn").on("click", function(){
-          $.fancybox({
-              href: this.href,
-              type: $(this).data("type"),
-              'title'         : this.title,
-              helpers     : {
-                  title : { type : 'inside' },
-                  media : {}
-              },
-
-              beforeShow : function(){
-                  $(".fancybox-wrap").addClass("gallery-fancybox");
-              }
-          });
-          return false
-      });
-  }
 
 
     /*------------------------------------------
